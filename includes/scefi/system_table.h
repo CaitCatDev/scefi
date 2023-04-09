@@ -1,6 +1,7 @@
 #pragma once
 
 #include "conout.h"
+#include "scefi/conin.h"
 
 #define EFI_SYSTEM_TABLE_SIGNATURE 0x5453595320494249
 #define EFI_2_90_SYSTEM_TABLE_REVISION ((2<<16) | (90))
@@ -24,7 +25,7 @@ typedef struct _EFI_SYSTEM_TABLE {
 	CHAR16 *FirmwareVender;
 	UINT32 FirmwareRevision;
 	EFI_HANDLE ConsoleInHandle;
-	VOID *ConIn; /*TODO: CONIN IMPL*/
+	EFI_SIMPLE_TEXT_INPUT_PROTOCOL *ConIn; 
 	EFI_HANDLE ConsolOutHandle;
 	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *ConOut;
 	EFI_HANDLE StandardErrorHandle;

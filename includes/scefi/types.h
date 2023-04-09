@@ -35,8 +35,8 @@ typedef signed long int64_t;
 typedef unsigned long uint64_t;
 #endif 
 
-#define TRUE (BOOLEAN)1;
-#define FALSE (BOOLEAN)0;
+#define TRUE (BOOLEAN)1
+#define FALSE (BOOLEAN)0
 
 typedef int8_t CHAR8;
 typedef int8_t INT8;
