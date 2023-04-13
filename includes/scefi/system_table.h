@@ -2,6 +2,11 @@
 
 #include "conout.h"
 #include "scefi/conin.h"
+#include "scefi/types.h"
+#include <scefi/system_table_internal.h>
+#include <scefi/boot_services.h>
+#include <scefi/runtime_services.h>
+#include <scefi/config_table.h>
 
 #define EFI_SYSTEM_TABLE_SIGNATURE 0x5453595320494249
 #define EFI_2_90_SYSTEM_TABLE_REVISION ((2<<16) | (90))
@@ -20,7 +25,8 @@
 #define EFI_SPECIFICATION_VERSION EFI_SYSTEM_TABLE_REVISION
 #define EFI_SYSTEM_TABLE_REVISION EFI_2_90_SYSTEM_TABLE_REVISION
 
-typedef struct _EFI_SYSTEM_TABLE {
+
+struct _EFI_SYSTEM_TABLE {
 	EFI_TABLE_HEADER Header;
 	CHAR16 *FirmwareVender;
 	UINT32 FirmwareRevision;
@@ -30,8 +36,8 @@ typedef struct _EFI_SYSTEM_TABLE {
 	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *ConOut;
 	EFI_HANDLE StandardErrorHandle;
 	EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL *StdErr; 
-	VOID *RuntimeServices; /*TODO: RUNTIME SERVICES*/ 
-	VOID *BootServices; /*TODO: BOOT SERVICES*/ 
+	EFI_RUNTIME_SERVICES *RuntimeServices; 
+	EFI_BOOT_SERVICES *BootServices;  
 	UINTN NumberOfTableEntries;
-	VOID *ConfigurationTable; /*TODO: CONFIG TABLE*/
-} EFI_SYSTEM_TABLE;
+	EFI_CONFIGURATION_TABLE *ConfigurationTable; 
+};
