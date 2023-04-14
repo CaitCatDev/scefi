@@ -55,9 +55,42 @@ typedef uint32_t UINT32;
 /*64bit variables*/
 typedef int64_t INT64;
 typedef uint64_t UINT64;
+#define JOIN(x, y) x ## y 
+#define JOIN_PREPROCESSOR(x, y) JOIN(x, y)
 
+#if defined(_WIN32) || defined(_WIN64)
+#if defined(_WIN64)
+#warning Win64
 typedef INT64 INTN;
 typedef UINT64 UINTN;
+
+#else
+
+#warning Win32 
+typedef INT32 INTN;
+typedef UINT32 UINTN;
+#endif
+
+#elif defined(__LONG_WIDTH__) 
+
+#warning Warning Unable to determine size of long on system assuming using __LONG_WIDTH__ 
+
+typedef JOIN_PREPROCESSOR(INT, __LONG_WIDTH__) INTN;
+typedef JOIN_PREPROCESSOR(INT, __LONG_WIDTH__) UINTN;
+
+#else 
+
+#ifndef __LONG_WIDTH__
+	#define __LONG_WIDTH__ 64 
+#endif 
+
+#warning __LONG_WIDTH__ is not defined by you compiler assuming 64 bit please manually speficy if this is wrong
+
+typedef JOIN_PREPROCESSOR(INT, __LONG_WIDTH__) INTN;
+typedef JOIN_PREPROCESSOR(INT, __LONG_WIDTH__) UINTN;
+
+#endif 
+
 
 typedef void VOID;
 typedef VOID *EFI_HANDLE;
